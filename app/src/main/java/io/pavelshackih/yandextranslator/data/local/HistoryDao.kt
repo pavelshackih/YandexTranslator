@@ -12,7 +12,7 @@ interface HistoryDao {
     @Query("select * from history")
     fun findAll(): Single<List<HistoryEntity>>
 
-    @Query("select * from history WHERE langCode = :arg0")
+    @Query("select * from history WHERE langCode = :langCode order by timeStamp limit 10")
     fun findByLangCode(langCode: String): Single<List<HistoryEntity>>
 
     @Insert

@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">YandexTranslator</string>
+    <string name="switch_lang">Switch lang</string>
+
+    <string name="rus">Русский</string>
+    <string name="eng">Английский</string>
+    <string name="ger">Немецкий</string>
+    <string name="error_same_langs">Направления перевода совпадают</string>
 </resources>

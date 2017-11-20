@@ -1,45 +1,91 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context="io.pavelshackih.yandextranslator.presentation.main.MainActivity">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <AutoCompleteTextView
-        android:id="@+id/edit_text"
+    <data>
+
+        <variable
+            name="presenter"
+            type="io.pavelshackih.yandextranslator.presentation.main.MainPresenter" />
+
+        <variable
+            name="viewModel"
+            type="io.pavelshackih.yandextranslator.presentation.main.ViewModel" />
+    </data>
+
+
+    <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp" />
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context="io.pavelshackih.yandextranslator.presentation.main.MainActivity">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:orientation="horizontal">
-
-        <Spinner
-            android:id="@+id/from_spinner"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-        <ImageButton
-            style="@style/Base.Widget.AppCompat.Button.Borderless"
-            android:layout_width="wrap_content"
+        <AutoCompleteTextView
+            android:id="@+id/edit_text"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:srcCompat="@drawable/ic_cached_black_24dp" />
+            android:layout_margin="16dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:maxLines="1"
+            android:onTextChanged="@{(text, start, before, count) -> presenter.onTextChanged(text)}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-        <Spinner
-            android:id="@+id/to_spinner"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+        <LinearLayout
+            android:id="@+id/lang_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/edit_text">
 
-    </LinearLayout>
+            <Spinner
+                android:id="@+id/from_spinner"
+                style="@style/Widget.AppCompat.Spinner.DropDown"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onItemSelected="@{(p, v, position, id) -> presenter.onFromChanged(position)}"
+                app:selectedLang="@{viewModel.fromLang}"
+                app:spinnerList="@{viewModel.languages}" />
 
-    <android.support.v7.widget.RecyclerView
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1" />
+            <ImageButton
+                style="@style/Base.Widget.AppCompat.Button.Borderless"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/switch_lang"
+                android:onClick="@{() -> presenter.onSwitchClick()}"
+                app:srcCompat="@drawable/ic_cached_black_24dp" />
 
-</LinearLayout>
+            <Spinner
+                android:id="@+id/to_spinner"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onItemSelected="@{(p, v, position, id) -> presenter.onToChanged(position)}"
+                app:selectedLang="@{viewModel.toLang}"
+                app:spinnerList="@{viewModel.languages}" />
+
+        </LinearLayout>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycler_view"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:visibility="visible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_creator="@+id/lang_layout"
+            app:layout_constraintTop_toBottomOf="@+id/lang_layout" />
+
+    </android.support.constraint.ConstraintLayout>
+
+</layout>

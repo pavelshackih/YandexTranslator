@@ -5,7 +5,7 @@ import io.reactivex.Single
 
 interface LocalRepository {
 
-    fun save(lang: String, history: String): Completable
+    fun save(lang: String, history: String, timeStamp: Long): Completable
 
     fun findByLang(lang: String): Single<List<String>>
 }

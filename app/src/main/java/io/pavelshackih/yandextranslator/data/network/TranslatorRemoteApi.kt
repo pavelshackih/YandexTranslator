@@ -27,7 +27,7 @@ interface TranslatorRemoteApi {
     )
     @FormUrlEncoded
     @POST("translate")
-    fun translate(@Query("code") lang: String, @Field("text") text: String): Single<TranslateResponse>
+    fun translate(@Query("lang") lang: String, @Field("text") text: String): Single<TranslateResponse>
 
     companion object {
 

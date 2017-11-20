@@ -3,7 +3,7 @@ package io.pavelshackih.yandextranslator.domain.main
 import com.nhaarman.mockito_kotlin.verify
 import com.nhaarman.mockito_kotlin.whenever
 import io.pavelshackih.yandextranslator.di.TestModule
-import io.pavelshackih.yandextranslator.domain.SupportedLang
+import io.pavelshackih.yandextranslator.domain.AppLang
 import io.pavelshackih.yandextranslator.domain.Translate
 import io.reactivex.Single
 import org.junit.Assert.assertEquals
@@ -25,16 +25,17 @@ class MainInteractorTest : KoinTest {
 
     @Test
     fun translate() {
-        val lang = SupportedLang.RU
+        val fromLang = AppLang.EN
+        val toLang = AppLang.RU
         val source = "test"
         val variants = listOf("1", "2", "3")
         val translate = Translate(variants)
 
-        whenever(module.remoteRepository.translate(lang, source)).thenReturn(Single.just(translate))
+        whenever(module.remoteRepository.translate(fromLang, toLang, source)).thenReturn(Single.just(translate))
 
-        val result = interactor.translate(lang, source).blockingGet()
+        val result = interactor.translate(fromLang, toLang, source).blockingGet()
 
-        verify(module.localRepostory).save(lang.code, source)
+        verify(module.localRepostory).save(fromLang.code, source, 0)
         assertEquals(result, translate)
     }
 }
