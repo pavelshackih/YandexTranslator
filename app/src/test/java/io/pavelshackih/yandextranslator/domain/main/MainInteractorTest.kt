@@ -35,7 +35,7 @@ class MainInteractorTest : KoinTest {
 
         val result = interactor.translate(fromLang, toLang, source).blockingGet()
 
-        verify(module.localRepostory).save(fromLang.code, source, 0)
+        verify(module.localRepository).save(fromLang.code, source, 0)
         assertEquals(result, translate)
     }
 }

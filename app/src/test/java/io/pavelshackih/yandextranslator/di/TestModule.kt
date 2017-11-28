@@ -11,7 +11,7 @@ import org.mockito.MockitoAnnotations
 class TestModule : Module() {
 
     @Mock
-    lateinit var localRepostory: LocalRepository
+    lateinit var localRepository: LocalRepository
 
     @Mock
     lateinit var remoteRepository: RemoteRepository
@@ -24,7 +24,7 @@ class TestModule : Module() {
     }
 
     override fun context(): Context = applicationContext {
-        provide { localRepostory }
+        provide { localRepository }
         provide { remoteRepository }
         provide { platformWrapper }
     }
