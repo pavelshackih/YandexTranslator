@@ -7,7 +7,6 @@ import io.pavelshackih.yandextranslator.domain.main.MainInteractor
 import io.pavelshackih.yandextranslator.ext.di.inject
 import io.pavelshackih.yandextranslator.ext.mvp.AppPresenter
 import io.pavelshackih.yandextranslator.ext.rx.RxScheduler
-import io.reactivex.BackpressureStrategy
 import io.reactivex.subjects.PublishSubject
 import java.util.concurrent.TimeUnit
 
@@ -24,8 +23,7 @@ class MainPresenter : AppPresenter<MainView>() {
         super.onFirstViewAttach()
         viewState.setModel(viewModel)
 
-        subject.toFlowable(BackpressureStrategy.MISSING)
-                .debounce(500, TimeUnit.MILLISECONDS)
+        subject.debounce(500, TimeUnit.MILLISECONDS)
                 .flatMapSingle { interactor.translate(viewModel.fromLang, viewModel.toLang, it.toString()) }
                 .subscribeOn(rxScheduler.getNetwork())
                 .observeOn(rxScheduler.getMain())
