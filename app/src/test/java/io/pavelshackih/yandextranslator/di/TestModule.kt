@@ -1,29 +1,18 @@
 package io.pavelshackih.yandextranslator.di
 
+import io.mockk.mockk
 import io.pavelshackih.yandextranslator.domain.repository.LocalRepository
 import io.pavelshackih.yandextranslator.domain.repository.RemoteRepository
 import io.pavelshackih.yandextranslator.domain.wrapper.PlatformWrapper
-import org.koin.dsl.context.Context
-import org.koin.dsl.module.Module
-import org.mockito.Mock
-import org.mockito.MockitoAnnotations
+import org.koin.dsl.module.applicationContext
 
-class TestModule : Module() {
+class TestModule {
 
-    @Mock
-    lateinit var localRepository: LocalRepository
+    private val localRepository = mockk<LocalRepository>()
+    private val remoteRepository = mockk<RemoteRepository>()
+    private val platformWrapper = mockk<PlatformWrapper>()
 
-    @Mock
-    lateinit var remoteRepository: RemoteRepository
-
-    @Mock
-    lateinit var platformWrapper: PlatformWrapper
-
-    init {
-        MockitoAnnotations.initMocks(this)
-    }
-
-    override fun context(): Context = applicationContext {
+    val testModule = applicationContext {
         provide { localRepository }
         provide { remoteRepository }
         provide { platformWrapper }

@@ -4,14 +4,15 @@ import android.util.Log
 import com.arellomobile.mvp.InjectViewState
 import io.pavelshackih.yandextranslator.domain.AppLang
 import io.pavelshackih.yandextranslator.domain.main.MainInteractor
-import io.pavelshackih.yandextranslator.ext.di.inject
 import io.pavelshackih.yandextranslator.ext.mvp.AppPresenter
 import io.pavelshackih.yandextranslator.ext.rx.RxScheduler
 import io.reactivex.subjects.PublishSubject
+import org.koin.standalone.KoinComponent
+import org.koin.standalone.inject
 import java.util.concurrent.TimeUnit
 
 @InjectViewState
-class MainPresenter : AppPresenter<MainView>() {
+class MainPresenter : AppPresenter<MainView>(), KoinComponent {
 
     private val interactor by inject<MainInteractor>()
     private val rxScheduler by inject<RxScheduler>()

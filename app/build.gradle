@@ -23,6 +23,11 @@ android {
     dataBinding {
         enabled = true
     }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 }
 
 dependencies {
@@ -41,14 +46,14 @@ dependencies {
     implementation 'android.arch.persistence.room:runtime:1.0.0'
     implementation 'android.arch.persistence.room:rxjava2:1.0.0'
     kapt "android.arch.persistence.room:compiler:1.0.0"
-    implementation 'org.koin:koin-android:0.5.1'
+    implementation 'org.koin:koin-android:0.7.1'
     implementation "com.arello-mobile:moxy-android:$moxy_version"
     implementation "com.arello-mobile:moxy-app-compat:$moxy_version"
     kapt "com.arello-mobile:moxy-compiler:$moxy_version"
-    kapt 'com.android.databinding:compiler:3.0.0'
+    kapt 'com.android.databinding:compiler:3.0.1'
     testImplementation 'junit:junit:4.12'
-    testImplementation 'org.koin:koin-test:0.5.1'
-    testImplementation 'com.nhaarman:mockito-kotlin:1.5.0'
+    testImplementation 'org.koin:koin-test:0.7.1'
+    testImplementation "io.mockk:mockk:1.6"
     testImplementation "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'

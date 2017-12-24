@@ -6,10 +6,11 @@ import io.pavelshackih.yandextranslator.domain.Translate
 import io.pavelshackih.yandextranslator.domain.repository.LocalRepository
 import io.pavelshackih.yandextranslator.domain.repository.RemoteRepository
 import io.pavelshackih.yandextranslator.domain.wrapper.PlatformWrapper
-import io.pavelshackih.yandextranslator.ext.di.inject
 import io.reactivex.Single
+import org.koin.standalone.KoinComponent
+import org.koin.standalone.inject
 
-class MainInteractor : Interactor {
+class MainInteractor : Interactor, KoinComponent {
 
     private val localRepository by inject<LocalRepository>()
     private val remoteRepository by inject<RemoteRepository>()
